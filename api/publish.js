@@ -19,7 +19,6 @@ function formatMessageWithPremiumEmojis(rawText = '') {
 }
 
 export default async function handler(req, res) {
-  // Allow Admin Ban / Unban actions via API or webhook requests
   const { action, targetUserId, BOT_TOKEN: tokenOverride } = req.body || {};
   const BOT_TOKEN = process.env.BOT_TOKEN || tokenOverride;
 
@@ -69,7 +68,6 @@ export default async function handler(req, res) {
   if (!userId) return res.status(400).json({ error: 'Missing userId' });
 
   try {
-    // Check if user is banned
     let isBanned = false;
     if (process.env.UPSTASH_REDIS_REST_URL) {
       const redis = Redis.fromEnv();
@@ -161,9 +159,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: `Telegram Error: ${tgData?.description || 'Failed'}` });
     }
 
-    // Save Payout Proof to cache for AdsGram moderation inspection
     const payoutRecord = {
-      id: Math.random().toString(36.substring(2, 9)),
+      id: Math.random().toString(36).substring(2, 9),
       user: firstName || 'Verified Member',
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       preview: (text || 'Media Post').substring(0, 45) + '...',
@@ -188,32 +185,24 @@ export default async function handler(req, res) {
       newCount = global.dailyMemoryStore[countKey];
     }
 
-    // Notify Admin (8026237972) with Ban/Unban quick options
     const postLink = publishedMsgId ? `https://t.me/${GROUP_ID.replace('@', '')}/${publishedMsgId}` : `https://t.me/${GROUP_ID.replace('@', '')}`;
     const adminLogHtml =
       `🔔 <b>New Post Published in ${GROUP_ID}!</b>\n\n` +
       `👤 <b>User:</b> ${firstName ? firstName.replace(/</g, '&lt;') : 'Unknown'} ${username ? `(@${username})` : ''}\n` +
       `🆔 <b>User ID:</b> <code>${userId}</code>\n` +
-      `🎬 <b>Ad Verified:</b> ${adTypeWatched === 'task' ? '✅ Task Block (54445)' : '🎥 Reward Block'}\n` +
+      `🎬 <b>Ad Verified:</b> ${adTypeWatched === 'task' ? '✅ Task Block (task-54445)' : '🎥 Reward Block (54445)'}\n` +
       `📊 <b>Posts Today:</b> ${newCount}\n\n` +
       `📝 <b>Content:</b>\n${cleanHtmlText || '<i>(Media)</i>'}\n\n` +
-      `🔗 <a href="${postLink}">View Post</a>\n\n` +
-      `⚠️ <i>To ban this user, send command in bot chat or call API with user ID ${userId}.</i>`;
+      `🔗 <a href="${postLink}">View Post</a>`;
 
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.zIndex || JSON.stringify({
+      body: JSON.stringify({
         chat_id: ADMIN_ID,
         text: adminLogHtml,
         parse_mode: 'HTML',
-        disable_web_page_preview: true,
-        reply_markup: {
-          inline_keyboard: [[
-            { text: `🚫 Ban User ${userId}`, callback_data: `ban_${userId}` },
-            { text: `✅ Unban`, callback_data: `unban_${userId}` }
-          ]]
-        }
+        disable_web_page_preview: true
       })
     }).catch(() => {});
 
