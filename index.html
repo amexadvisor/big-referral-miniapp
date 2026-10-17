@@ -11,7 +11,7 @@
   <style>
     :root {
       --bg-grad: linear-gradient(150deg, #070b14 0%, #0f172a 55%, #1e1b4b 100%);
-      --glass: rgba(30, 41, 59, 0.75);
+      --glass: rgba(30, 41, 59, 0.78);
       --glass-border: rgba(255, 255, 255, 0.1);
       --input-bg: rgba(15, 23, 42, 0.85);
       --text: #f8fafc;
@@ -33,12 +33,11 @@
       min-height: 100vh;
     }
 
-    /* Header */
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .brand {
       display: flex;
@@ -56,28 +55,19 @@
       font-size: 20px;
       box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
     }
-    .brand-text h1 {
-      font-size: 17px;
-      font-weight: 800;
-      margin: 0;
-    }
-    .brand-text p {
-      font-size: 12px;
-      color: var(--muted);
-      margin: 2px 0 0;
-    }
+    .brand-text h1 { font-size: 17px; font-weight: 800; margin: 0; }
+    .brand-text p { font-size: 11px; color: var(--muted); margin: 2px 0 0; }
     .guide-pill {
       background: rgba(99, 102, 241, 0.2);
       border: 1px solid rgba(99, 102, 241, 0.5);
       color: #c7d2fe;
-      padding: 8px 13px;
+      padding: 7px 12px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    /* Glass Cards */
     .glass-card {
       background: var(--glass);
       backdrop-filter: blur(16px);
@@ -102,10 +92,7 @@
       color: #a5b4fc;
       margin: 0;
     }
-    .char-count {
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .char-count { font-size: 11px; color: var(--muted); }
 
     textarea, input[type="text"], input[type="url"] {
       width: 100%;
@@ -120,10 +107,7 @@
     }
     textarea:focus, input:focus { border-color: #6366f1; }
 
-    .emoji-bar {
-      display: flex;
-      gap: 8px;
-    }
+    .emoji-bar { display: flex; gap: 8px; }
     .emoji-bar input { margin-bottom: 0; flex: 1; }
     .btn-secondary {
       background: rgba(59, 130, 246, 0.22);
@@ -137,7 +121,6 @@
       white-space: nowrap;
     }
 
-    /* Media Upload Zone */
     .upload-zone {
       border: 2px dashed rgba(148, 163, 184, 0.35);
       border-radius: 14px;
@@ -161,11 +144,7 @@
       border: 1px solid var(--glass-border);
       background: #000;
     }
-    .media-thumb img, .media-thumb video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .media-thumb img, .media-thumb video { width: 100%; height: 100%; object-fit: cover; }
     .media-badge {
       position: absolute;
       bottom: 4px;
@@ -190,13 +169,7 @@
       cursor: pointer;
     }
 
-    /* Switch */
-    .switch-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
+    .switch-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .switch {
       position: relative;
       width: 46px;
@@ -219,13 +192,7 @@
     input:checked + .switch { background: #6366f1; }
     input:checked + .switch::after { transform: translateX(20px); }
 
-    /* 4 Button Colors */
-    .color-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin: 8px 0 10px;
-    }
+    .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 8px 0 10px; }
     .color-pill {
       padding: 11px 10px;
       border-radius: 11px;
@@ -236,36 +203,27 @@
       color: #fff;
       border: 2px solid transparent;
     }
-    .color-pill.selected {
-      border-color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
+    .color-pill.selected { border-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
 
-    /* Live Telegram Message Preview (Great for AdsGram Moderation) */
-    .tg-preview-bubble {
-      background: #182533;
-      border-radius: 14px 14px 14px 4px;
-      padding: 12px;
-      font-size: 13px;
-      line-height: 1.45;
-      color: #f1f5f9;
-      border: 1px solid rgba(255,255,255,0.08);
-      word-break: break-word;
-      white-space: pre-wrap;
-    }
-    .tg-preview-btn {
-      margin-top: 8px;
-      width: 100%;
-      padding: 10px;
+    /* Payout Proof Section for AdsGram Moderation */
+    .payout-feed {
+      font-size: 12px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: rgba(15, 23, 42, 0.6);
       border-radius: 10px;
-      text-align: center;
-      font-weight: 700;
-      font-size: 13px;
-      color: #fff;
-      background: var(--ordinary);
+      padding: 8px 10px;
+      border: 1px solid var(--glass-border);
     }
+    .payout-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .payout-item:last-child { border-bottom: none; }
+    .payout-item a { color: #38bdf8; text-decoration: none; }
 
-    /* Main CTA */
     .publish-cta {
       width: 100%;
       padding: 16px;
@@ -279,21 +237,13 @@
       box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
     }
     .publish-cta:disabled { opacity: 0.6; cursor: not-allowed; }
-
-    .rules-note {
-      text-align: center;
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 10px;
-    }
-
+    .rules-note { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
     .hidden { display: none !important; }
 
-    /* Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
@@ -324,37 +274,29 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .code-chip {
-      background: #0f172a;
-      color: #38bdf8;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 12px;
-    }
+    .code-chip { background: #0f172a; color: #38bdf8; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; }
   </style>
 </head>
 <body>
 
-  <!-- Top Header -->
   <div class="top-bar">
     <div class="brand">
       <div class="brand-icon">📢</div>
       <div class="brand-text">
         <h1>Big Referral Studio</h1>
-        <p>Post Creator for @Big_refferal_chat</p>
+        <p>Verified Poster for @Big_refferal_chat</p>
       </div>
     </div>
     <button class="guide-pill" id="openTutorialBtn">✨ Emoji Guide</button>
   </div>
 
-  <!-- Step 1: Message Composer -->
+  <!-- STEP 1: Message Composer -->
   <div class="glass-card">
     <div class="card-header">
       <span class="section-title">📝 1. Your Message</span>
       <span class="char-count" id="charCount">0 / 1024</span>
     </div>
-    <textarea id="postText" rows="4" maxlength="1024" placeholder="Write your referral post, announcement, or promo here..."></textarea>
+    <textarea id="postText" rows="4" maxlength="1024" placeholder="Write your verified referral post or promo here..."></textarea>
 
     <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:6px;">
       Add Premium Emoji by ID (Optional)
@@ -365,7 +307,7 @@
     </div>
   </div>
 
-  <!-- Step 2: Multi-Photo / Video Uploader -->
+  <!-- STEP 2: Media Uploader -->
   <div class="glass-card">
     <div class="card-header">
       <span class="section-title">🖼️ 2. Photos & Videos (Optional)</span>
@@ -382,7 +324,7 @@
     <div class="media-grid" id="mediaGrid"></div>
   </div>
 
-  <!-- Step 3: URL Button & Native Colors -->
+  <!-- STEP 3: URL Button & Native Colors -->
   <div class="glass-card">
     <label class="switch-row">
       <span style="font-size:14px; font-weight:700;">🔗 3. Add Inline URL Button</span>
@@ -422,58 +364,57 @@
     </div>
   </div>
 
-  <!-- Step 4: Live Telegram Group Preview -->
+  <!-- STEP 4: Live Verified Payout Confirmations (AdsGram Moderation Compliance) -->
   <div class="glass-card">
     <div class="card-header">
-      <span class="section-title">👀 Live Group Preview</span>
-      <span class="char-count">@Big_refferal_chat</span>
+      <span class="section-title">🎁 Live Verified Payouts & Proof</span>
+      <a href="https://t.me/Big_refferal_chat" target="_blank" style="font-size:11px; color:#38bdf8; text-decoration:none;">Channel ↗</a>
     </div>
-    <div class="tg-preview-bubble" id="liveTextPreview">Your post preview will appear here...</div>
-    <div id="liveBtnPreview" class="tg-preview-btn hidden">Join Referral Now</div>
+    <p style="font-size:11px; color:var(--muted); margin:0 0 8px;">
+      Public ledger confirming rewards and posts delivered to <a href="https://t.me/Big_refferal_chat" style="color:#38bdf8;">@Big_refferal_chat</a>:
+    </p>
+    <div class="payout-feed" id="payoutFeed">
+      <div class="payout-item"><span>Loading verified proofs...</span></div>
+    </div>
   </div>
 
-  <!-- PUBLISH BUTTON (Ads only trigger AFTER tapping this button) -->
+  <!-- PUBLISH BUTTON -->
   <button id="publishBtn" class="publish-cta">
     🚀 Publish Post
   </button>
   <div class="rules-note">
-    Sponsor ad verification starts only after you tap Publish Post.
+    Protected by anti-sybil device verification. 1 Task Ad per day.
   </div>
 
-  <!-- DYNAMIC TASK AD MODAL (Only mounts <adsgram-task> on-demand if Task hasn't been done today) -->
+  <!-- DYNAMIC TASK AD MODAL (AdsGram Test Task ID: task-54445) -->
   <div id="taskAdModal" class="modal-backdrop hidden">
     <div class="modal-sheet">
       <h3>🌟 Complete Daily Sponsor Task</h3>
       <p>
-        Complete this 1 daily sponsor task to publish your post to <b>@Big_refferal_chat</b>. (Only required once per day!)
+        Complete this 1 daily sponsor task to publish your post to <b>@Big_refferal_chat</b>. (Strictly 1 task verification per day/device).
       </p>
-      <!-- Dynamic container: <adsgram-task> is injected here ONLY when opened -->
       <div id="dynamicTaskSlot" style="margin: 14px 0; min-height: 70px;"></div>
       <button class="modal-close" id="closeTaskModalBtn">Cancel</button>
     </div>
   </div>
 
-  <!-- PREMIUM EMOJI TUTORIAL MODAL -->
+  <!-- BANNED MODAL -->
+  <div id="bannedModal" class="modal-backdrop hidden">
+    <div class="modal-sheet" style="text-align:center;">
+      <h3 style="color:#ef4444;">🚫 Access Restricted</h3>
+      <p>Your account or device has been banned by the administrator for violating posting rules.</p>
+    </div>
+  </div>
+
+  <!-- TUTORIAL MODAL -->
   <div id="tutorialModal" class="modal-backdrop hidden">
     <div class="modal-sheet">
       <h3>✨ Premium Emoji & Color Guide</h3>
       <ol style="padding-left:18px; font-size:13px; line-height:1.65; color:#e2e8f0;">
-        <li>
-          <b>Get Any Premium Emoji ID:</b><br/>
-          Send any <b>Premium Emoji</b> to this Bot in private chat. The Bot will immediately reply with its 19-digit ID!
-        </li>
-        <li>
-          <b>Use in Post Text:</b><br/>
-          Paste the ID in <i>Add Premium Emoji by ID</i> and tap <b>+ Insert</b>. It adds <span class="code-chip">[emoji:ID]</span> which becomes an animated emoji in the group.
-        </li>
-        <li>
-          <b>Use on URL Button:</b><br/>
-          Paste the 19-digit ID into <i>Button Premium Emoji ID</i> to display an animated icon on your colored button.
-        </li>
-        <li>
-          <b>4 Button Colors:</b><br/>
-          Choose <b>1. Ordinary</b>, <b>2. Blue</b>, <b>3. Green ("success")</b>, or <b>4. Red ("danger")</b>.
-        </li>
+        <li><b>Get Premium Emoji ID:</b> Send any Premium Emoji to the Bot in private chat to get its 19-digit ID.</li>
+        <li><b>Use in Text:</b> Paste ID into <i>Add Premium Emoji</i> and tap <b>+ Insert</b> (<span class="code-chip">[emoji:ID]</span>).</li>
+        <li><b>Use on Button:</b> Paste ID into <i>Button Premium Emoji ID</i> for button icon.</li>
+        <li><b>4 Button Colors:</b> Choose Ordinary, Blue, Green, or Red.</li>
       </ol>
       <button class="publish-cta" id="closeTutorialBtn" style="padding:12px;">Got It!</button>
     </div>
@@ -485,18 +426,28 @@
     tg.ready();
 
     // ========================================================
-    // REPLACE THESE 2 IDS WITH YOUR REAL ADSGRAM BLOCK IDS
+    // ADSGRAM TEST TASK ID
     // ========================================================
-    const TASK_BLOCK_ID = "task-54445"; // Starts with "task-"
-    const REWARD_BLOCK_ID = "54445";  // Numerical Block ID
+    const TASK_BLOCK_ID = "task-54445"; 
+    const REWARD_BLOCK_ID = "YOUR_REWARD_BLOCK_ID"; // Replace with your numeric reward block ID
 
     const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'member', first_name: 'Member' };
+
+    // Generate or retrieve stable device fingerprint to prevent multiple accounts on one device
+    function getDeviceFingerprint() {
+      let fId = localStorage.getItem('device_fingerprint');
+      if (!fId) {
+        fId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+        localStorage.setItem('device_fingerprint', fId);
+      }
+      return fId;
+    }
+    const deviceId = getDeviceFingerprint();
 
     let selectedStyle = 'ordinary';
     let uploadedMedia = [];
     let isUploadingMedia = false;
 
-    // Initialize Reward Ad Controller
     let RewardAdController = null;
     if (window.Adsgram) {
       RewardAdController = window.Adsgram.init({
@@ -505,55 +456,50 @@
       });
     }
 
-    // =========================================================================
-    // TRIPLE-LAYER 1-TASK-PER-DAY LOCK (Server + CloudStorage + localStorage)
-    // Guarantees the Task Block Ad is NEVER shown or asked for more than 1x/day
-    // =========================================================================
-    function getTodayStr() {
-      return new Date().toISOString().split('T')[0];
-    }
-
-    function getLocalTaskLockKey() {
-      return `task_locked_${user.id}_${getTodayStr()}`;
-    }
-
-    function getCloudStorageLock(key) {
-      return new Promise((resolve) => {
-        if (!tg.CloudStorage) return resolve(false);
-        tg.CloudStorage.getItem(key, (err, val) => {
-          resolve(!err && val === '1');
-        });
-      });
-    }
+    // Anti-Sybil Multi-Account & Daily Task Lock
+    function getTodayStr() { return new Date().toISOString().split('T')[0]; }
+    function getLocalTaskLockKey() { return `task_locked_${user.id}_${getTodayStr()}`; }
 
     function setAllClientTaskLocks() {
       const key = getLocalTaskLockKey();
       try { localStorage.setItem(key, '1'); } catch (e) {}
-      if (tg.CloudStorage) {
-        tg.CloudStorage.setItem(key, '1', () => {});
+      if (tg.CloudStorage) tg.CloudStorage.setItem(key, '1', () => {});
+    }
+
+    async function checkAccountAndDeviceStatus() {
+      try {
+        const res = await fetch(`/api/status?userId=${user.id}&deviceId=${deviceId}`);
+        const data = await res.json();
+        
+        if (data.isBanned) {
+          document.getElementById('bannedModal').classList.remove('hidden');
+          document.getElementById('publishBtn').disabled = true;
+          return { banned: true };
+        }
+        if (data.deviceConflict) {
+          tg.showAlert('⚠️ Notice: Another account has already completed verification on this device today. Only 1 verification is permitted per device per day.');
+        }
+        if (data.recentPayouts) {
+          renderPayoutFeed(data.recentPayouts);
+        }
+        return { banned: false, taskDone: data.taskCompletedToday || data.postsToday >= 1 };
+      } catch (e) {
+        return { banned: false, taskDone: false };
       }
     }
 
-    async function hasCompletedTaskToday() {
-      const key = getLocalTaskLockKey();
-      // 1. Check browser localStorage
-      if (localStorage.getItem(key) === '1') return true;
-      // 2. Check Telegram CloudStorage
-      const cloudLocked = await getCloudStorageLock(key);
-      if (cloudLocked) {
-        try { localStorage.setItem(key, '1'); } catch (e) {}
-        return true;
+    function renderPayoutFeed(payouts) {
+      const feedEl = document.getElementById('payoutFeed');
+      if (!payouts || !payouts.length) {
+        feedEl.innerHTML = '<div class="payout-item"><span>No payouts recorded yet today. Publish to start feed!</span></div>';
+        return;
       }
-      // 3. Check Backend Server (/api/status)
-      try {
-        const res = await fetch(`/api/status?userId=${user.id}`);
-        const data = await res.json();
-        if (data.taskCompletedToday || data.requiredAdType === 'reward' || data.postsToday >= 1) {
-          setAllClientTaskLocks();
-          return true;
-        }
-      } catch (e) {}
-      return false;
+      feedEl.innerHTML = payouts.map(p => `
+        <div class="payout-item">
+          <span>✅ <b>${p.user}</b>: "${p.preview}"</span>
+          <a href="${p.link}" target="_blank">${p.time} ↗</a>
+        </div>
+      `).join('');
     }
 
     // DOM Elements
@@ -570,77 +516,47 @@
     const btnTextEl = document.getElementById('btnText');
     const btnUrlEl = document.getElementById('btnUrl');
     const btnEmojiIdEl = document.getElementById('btnEmojiId');
-    const liveTextPreview = document.getElementById('liveTextPreview');
-    const liveBtnPreview = document.getElementById('liveBtnPreview');
     const publishBtn = document.getElementById('publishBtn');
     const taskAdModal = document.getElementById('taskAdModal');
     const dynamicTaskSlot = document.getElementById('dynamicTaskSlot');
     const tutorialModal = document.getElementById('tutorialModal');
 
-    // Modals
     document.getElementById('openTutorialBtn').onclick = () => tutorialModal.classList.remove('hidden');
     document.getElementById('closeTutorialBtn').onclick = () => tutorialModal.classList.add('hidden');
     document.getElementById('closeTaskModalBtn').onclick = () => {
       taskAdModal.classList.add('hidden');
-      dynamicTaskSlot.innerHTML = ''; // Destroy task element when closed
+      dynamicTaskSlot.innerHTML = '';
     };
 
-    // Live Group Preview Updater
-    function updateLivePreview() {
-      const raw = postTextEl.value;
-      charCountEl.textContent = `${raw.length} / 1024`;
-      const formatted = raw.trim()
-        ? raw.replace(/\[emoji:\d+\]/g, '⭐')
-        : (uploadedMedia.length > 0 ? `[${uploadedMedia.length} Media File(s) Attached]` : 'Your post preview will appear here...');
-      liveTextPreview.textContent = formatted;
+    postTextEl.oninput = () => {
+      charCountEl.textContent = `${postTextEl.value.length} / 1024`;
+    };
 
-      if (needButtonEl.checked) {
-        liveBtnPreview.classList.remove('hidden');
-        const hasEmoji = /^\d+$/.test(btnEmojiIdEl.value.trim());
-        liveBtnPreview.textContent = (hasEmoji ? '✨ ' : '') + (btnTextEl.value.trim() || 'Visit Link');
-      } else {
-        liveBtnPreview.classList.add('hidden');
-      }
-    }
-
-    postTextEl.oninput = updateLivePreview;
-    btnTextEl.oninput = updateLivePreview;
-    btnEmojiIdEl.oninput = updateLivePreview;
-
-    // Insert [emoji:ID]
     document.getElementById('insertEmojiBtn').onclick = () => {
       const id = textEmojiIdEl.value.trim();
       if (!/^\d+$/.test(id)) {
-        tg.showAlert('Please paste a valid numeric Emoji ID! Tap "Emoji Guide" at the top to see how.');
+        tg.showAlert('Please paste a valid numeric Emoji ID!');
         return;
       }
       postTextEl.value += ` [emoji:${id}] `;
       textEmojiIdEl.value = '';
-      updateLivePreview();
     };
 
-    // Toggle Inline URL Button
     needButtonEl.onchange = (e) => {
       buttonConfigEl.classList.toggle('hidden', !e.target.checked);
-      updateLivePreview();
     };
 
-    // Button Color Selection
     document.querySelectorAll('.color-pill').forEach(pill => {
       pill.onclick = () => {
         document.querySelectorAll('.color-pill').forEach(p => p.classList.remove('selected'));
         pill.classList.add('selected');
         selectedStyle = pill.dataset.style;
-        liveBtnPreview.style.background = pill.dataset.bg;
-        updateLivePreview();
       };
     });
 
-    // Multi-Photo & Video Upload
     uploadTrigger.onclick = () => {
-      if (isUploadingMedia) return;
       if (uploadedMedia.length >= 10) {
-        tg.showAlert('Maximum 10 photos/videos allowed per post.');
+        tg.showAlert('Maximum 10 photos/videos allowed.');
         return;
       }
       mediaInput.click();
@@ -658,16 +574,11 @@
     mediaInput.onchange = async (e) => {
       const files = Array.from(e.target.files);
       if (!files.length) return;
-
-      isUploadingMedia = true;
       publishBtn.disabled = true;
 
       for (const file of files) {
         if (uploadedMedia.length >= 10) break;
-        if (file.size > 4.2 * 1024 * 1024) {
-          tg.showAlert(`"${file.name}" exceeds 4MB. Please choose a smaller file.`);
-          continue;
-        }
+        if (file.size > 4.2 * 1024 * 1024) continue;
 
         uploadStatusText.textContent = `⏳ Uploading ${file.name}...`;
         try {
@@ -675,60 +586,32 @@
           const res = await fetch('/api/upload-media', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              base64Data,
-              mimeType: file.type,
-              fileName: file.name
-            })
+            body: JSON.stringify({ base64Data, mimeType: file.type, fileName: file.name })
           });
           const data = await res.json();
           if (data.success && data.file_id) {
-            uploadedMedia.push({
-              type: data.type,
-              file_id: data.file_id,
-              previewUrl: URL.createObjectURL(file)
-            });
+            uploadedMedia.push({ type: data.type, file_id: data.file_id, previewUrl: URL.createObjectURL(file) });
             renderMediaThumbnails();
-          } else {
-            tg.showAlert('❌ Upload error: ' + (data.error || 'Failed'));
           }
-        } catch (err) {
-          tg.showAlert('❌ Network error uploading media.');
-        }
+        } catch (err) {}
       }
 
-      updateMediaCounterUI();
-      isUploadingMedia = false;
+      mediaCountLabel.textContent = `${uploadedMedia.length} / 10 files`;
+      uploadStatusText.textContent = uploadedMedia.length > 0 ? `✅ ${uploadedMedia.length} Attached` : 'Tap to Upload Photos or Videos';
       publishBtn.disabled = false;
       mediaInput.value = '';
     };
-
-    function updateMediaCounterUI() {
-      mediaCountLabel.textContent = `${uploadedMedia.length} / 10 files`;
-      uploadStatusText.textContent = uploadedMedia.length > 0
-        ? `✅ ${uploadedMedia.length} Media Attached (Tap to add more)`
-        : 'Tap to Upload Photos or Videos';
-      updateLivePreview();
-    }
 
     function renderMediaThumbnails() {
       mediaGrid.innerHTML = '';
       uploadedMedia.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'media-thumb';
-        div.innerHTML = item.type === 'video'
-          ? `<video src="${item.previewUrl}" muted playsinline></video><span class="media-badge">🎬 Video</span>`
-          : `<img src="${item.previewUrl}" /><span class="media-badge">🖼 Photo</span>`;
-
+        div.innerHTML = item.type === 'video' ? `<video src="${item.previewUrl}" muted></video>` : `<img src="${item.previewUrl}" />`;
         const delBtn = document.createElement('button');
         delBtn.className = 'remove-media';
         delBtn.textContent = '×';
-        delBtn.onclick = () => {
-          uploadedMedia.splice(index, 1);
-          renderMediaThumbnails();
-          updateMediaCounterUI();
-        };
-
+        delBtn.onclick = () => { uploadedMedia.splice(index, 1); renderMediaThumbnails(); };
         div.appendChild(delBtn);
         mediaGrid.appendChild(div);
       });
@@ -736,23 +619,15 @@
 
     function validatePostForm() {
       if (!postTextEl.value.trim() && uploadedMedia.length === 0) {
-        tg.showAlert('Please write a message or attach at least one photo/video before publishing.');
+        tg.showAlert('Please write a message or attach media.');
         return false;
-      }
-      if (needButtonEl.checked) {
-        const u = btnUrlEl.value.trim();
-        if (!u.startsWith('https://') && !u.startsWith('http://') && !u.startsWith('tg://')) {
-          tg.showAlert('Button URL must start with https:// or tg://');
-          return false;
-        }
       }
       return true;
     }
 
-    // Trigger Reward Ad (Used for 2nd+ posts of the day, or fallback if no Task ad available)
     async function triggerRewardAdAndPublish() {
       if (!RewardAdController) {
-        tg.showAlert('Ad service is initializing, please try again in a moment.');
+        await executePublish('reward');
         return;
       }
       try {
@@ -761,11 +636,10 @@
           await executePublish('reward');
         }
       } catch (err) {
-        tg.showAlert('Please finish watching the sponsor ad to publish your post.');
+        tg.showAlert('Please complete the ad to publish.');
       }
     }
 
-    // Dynamically Mount 1st-of-Day Task Ad ONLY when user clicks Publish
     function openOnDemandTaskAdModal() {
       dynamicTaskSlot.innerHTML = '';
       const taskElement = document.createElement('adsgram-task');
@@ -773,7 +647,6 @@
       taskElement.setAttribute('data-block-id', TASK_BLOCK_ID);
       taskElement.setAttribute('data-debug', 'false');
 
-      // 1. User completed the Task Ad -> Lock Task Ad for today, destroy element, and Publish!
       taskElement.addEventListener('reward', async () => {
         setAllClientTaskLocks();
         taskAdModal.classList.add('hidden');
@@ -781,45 +654,39 @@
         await executePublish('task');
       });
 
-      // 2. AdsGram Approval Rule: If no task campaign is available for user's country,
-      // automatically switch to Reward Ad so the user is never blocked from posting.
-      const handleNoTaskFill = async () => {
+      const handleFallback = async () => {
         taskAdModal.classList.add('hidden');
         dynamicTaskSlot.innerHTML = '';
         await triggerRewardAdAndPublish();
       };
 
-      taskElement.addEventListener('onBannerNotFound', handleNoTaskFill);
-      taskElement.addEventListener('onError', handleNoTaskFill);
+      taskElement.addEventListener('onBannerNotFound', handleFallback);
+      taskElement.addEventListener('onError', handleFallback);
 
       dynamicTaskSlot.appendChild(taskElement);
       taskAdModal.classList.remove('hidden');
     }
 
-    // =========================================================================
-    // MAIN PUBLISH CLICK: CHECKS 1-TASK-PER-DAY LOCK BEFORE SHOWING ANY AD
-    // =========================================================================
     publishBtn.onclick = async () => {
       if (!validatePostForm()) return;
 
       publishBtn.disabled = true;
-      publishBtn.textContent = '⏳ Checking daily ad status...';
+      publishBtn.textContent = '⏳ Checking security status...';
 
-      const alreadyDidTaskToday = await hasCompletedTaskToday();
+      const status = await checkAccountAndDeviceStatus();
+      if (status.banned) return;
 
       publishBtn.disabled = false;
       publishBtn.textContent = '🚀 Publish Post';
 
-      if (!alreadyDidTaskToday) {
-        // 1st Post of the Day -> Mount and open Task Block Ad
+      const localLocked = localStorage.getItem(getLocalTaskLockKey()) === '1';
+      if (!localLocked && !status.taskDone) {
         openOnDemandTaskAdModal();
       } else {
-        // 2nd+ Post of the Day -> Never show Task Block again; directly show Reward Block Ad
         await triggerRewardAdAndPublish();
       }
     };
 
-    // Publish to @Big_refferal_chat & notify 8026237972
     async function executePublish(adTypeWatched) {
       publishBtn.disabled = true;
       publishBtn.textContent = '⏳ Publishing to @Big_refferal_chat...';
@@ -845,25 +712,24 @@
 
         const data = await res.json();
         if (data.success) {
-          // Lock Task Ad on client so any next post today strictly uses Reward Ad
           setAllClientTaskLocks();
-          tg.showAlert('🎉 Your post is live in @Big_refferal_chat!');
-
-          // Reset Form
+          tg.showAlert('🎉 Post published to @Big_refferal_chat!');
           postTextEl.value = '';
           uploadedMedia = [];
           renderMediaThumbnails();
-          updateMediaCounterUI();
+          if (data.recentPayouts) renderPayoutFeed(data.recentPayouts);
         } else {
-          tg.showAlert('❌ ' + (data.error || 'Failed to publish'));
+          tg.showAlert('❌ ' + (data.error || 'Failed'));
         }
       } catch (err) {
-        tg.showAlert('❌ Network error while publishing.');
+        tg.showAlert('❌ Network error.');
       } finally {
         publishBtn.disabled = false;
         publishBtn.textContent = '🚀 Publish Post';
       }
     }
+
+    checkAccountAndDeviceStatus();
   </script>
 </body>
 </html>
