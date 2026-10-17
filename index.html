@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Big Referral Chat Poster</title>
+  <!-- Telegram Mini App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- AdsGram SDK -->
+  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: #334155;
+      --ordinary: #334155;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 16px;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #334155;
+      margin-bottom: 14px;
+    }
+    .tutorial-btn {
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    textarea, input[type="text"], input[type="url"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .emoji-insert-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .emoji-insert-bar input {
+      margin-bottom: 0;
+      flex: 1;
+    }
+    .small-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      margin: 6px 0;
+    }
+    .style-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .style-option {
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      color: #fff;
+    }
+    .style-option.selected {
+      border-color: #ffffff;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.25);
+    }
+    .preview-btn {
+      width: 100%;
+      padding: 11px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: #fff;
+      background: var(--ordinary);
+      margin-top: 6px;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .hidden { display: none !important; }
+
+    /* Modal Tutorial */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      max-width: 420px;
+      width: 100%;
+      padding: 18px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .modal h4 { margin-top: 0; }
+    .modal ol { padding-left: 20px; font-size: 13px; line-height: 1.6; }
+    .code-box {
+      background: var(--bg);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      display: inline-block;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-row">
+    <h3 style="margin:0;">📢 @Big_refferal_chat</h3>
+    <button class="tutorial-btn" id="openTutorialBtn">✨ Premium Emoji Tutorial</button>
+  </div>
+
+  <div id="adStatusBadge" class="badge">Checking your daily ad status...</div>
+
+  <div class="card">
+    <label for="postText">1. Your Message</label>
+    <textarea id="postText" rows="4" placeholder="Write your referral post here..."></textarea>
+
+    <!-- Quick Insert Premium Emoji into Message Text -->
+    <label>Insert Premium Emoji in Message (Optional)</label>
+    <div class="emoji-insert-bar">
+      <input type="text" id="textEmojiId" placeholder="Paste 19-digit Emoji ID..." />
+      <button type="button" class="small-btn" id="insertEmojiBtn">+ Insert Tag</button>
+    </div>
+
+    <label class="toggle-row">
+      <input type="checkbox" id="needButton" />
+      <span>Add an Inline URL Button to my post?</span>
+    </label>
+
+    <!-- URL Button Configuration -->
+    <div id="buttonConfig" class="hidden" style="margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
+      <label for="btnText">Button Text</label>
+      <input type="text" id="btnText" value="Join Referral Now" placeholder="Button Label" />
+
+      <label for="btnUrl">Button URL (must start with https:// or tg://)</label>
+      <input type="url" id="btnUrl" placeholder="https://t.me/..." />
+
+      <label for="btnEmojiId">Button Premium Emoji ID (Optional icon before text)</label>
+      <input type="text" id="btnEmojiId" placeholder="e.g. 5368324170671202286" />
+
+      <label>Choose Button Color (Telegram Bot API 9.4)</label>
+      <div class="style-grid">
+        <div class="style-option selected" data-style="ordinary" data-bg="#334155" style="background:#334155;">
+          1. Ordinary
+        </div>
+        <div class="style-option" data-style="primary" data-bg="#2563eb" style="background:#2563eb;">
+          2. Blue (Primary)
+        </div>
+        <div class="style-option" data-style="success" data-bg="#16a34a" style="background:#16a34a;">
+          3. Green ("success")
+        </div>
+        <div class="style-option" data-style="danger" data-bg="#dc2626" style="background:#dc2626;">
+          4. Red ("danger")
+        </div>
+      </div>
+
+      <label>Live Button Preview:</label>
+      <div id="previewBtn" class="preview-btn">Join Referral Now</div>
+    </div>
+  </div>
+
+  <!-- ADSGRAM TASK BLOCK (Shown ONLY on 1st post of the day) -->
+  <div id="taskAdContainer" class="card hidden">
+    <label>Step 2: Complete Today's 1st Task Ad (1/Day)</label>
+    <p style="font-size:12px; color:var(--muted); margin-top:0;">
+      Complete this task block ad first. After your 1st post today, any extra posts will use Reward Video ads!
+    </p>
+    <adsgram-task data-block-id="task-YOUR_TASK_BLOCK_ID" data-debug="false" class="task"></adsgram-task>
+  </div>
+
+  <!-- ADSGRAM REWARD BLOCK (Shown on 2nd+ posts of the day) -->
+  <button id="rewardAdBtn" class="submit-btn hidden">
+    🎬 Watch Reward Ad & Publish Post
+  </button>
+
+  <!-- TUTORIAL MODAL FOR PREMIUM EMOJIS -->
+  <div id="tutorialModal" class="modal-overlay hidden">
+    <div class="modal">
+      <h4>✨ How to Use Premium Emojis & Button Colors</h4>
+      <ol>
+        <li>
+          <b>How to get any Premium Emoji ID:</b><br/>
+          Close or minimize this Mini App and send <b>any Premium Emoji</b> directly to this Bot in our private chat. The Bot will immediately reply with its 19-digit <b>Emoji ID</b>!
+        </li>
+        <li>
+          <b>Adding a Premium Emoji to your Message Text:</b><br/>
+          Paste the Emoji ID into the <i>"Insert Premium Emoji"</i> box and tap <b>+ Insert Tag</b>. It will insert:<br/>
+          <span class="code-box">[emoji:5368324170671202286]</span><br/>
+          When published to <b>@Big_refferal_chat</b>, it turns into an animated Telegram Premium emoji!
+        </li>
+        <li>
+          <b>Adding a Premium Emoji to your URL Button:</b><br/>
+          Enable the URL Button and paste the 19-digit Emoji ID into <b>Button Premium Emoji ID</b>. Telegram will display the animated icon right before your button text!
+        </li>
+        <li>
+          <b>Choosing Button Colors:</b><br/>
+          • <b>Ordinary:</b> Standard Telegram theme button<br/>
+          • <b>Blue:</b> <code>primary</code> style<br/>
+          • <b>Green:</b> <code>success</code> style<br/>
+          • <b>Red:</b> <code>danger</code> style
+        </li>
+      </ol>
+      <button class="submit-btn" id="closeTutorialBtn">Got It!</button>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    // ========================================================
+    // REPLACE THESE 2 IDS WITH YOUR REAL ADSGRAM BLOCK IDS
+    // ========================================================
+    const TASK_BLOCK_ID = "task-YOUR_TASK_BLOCK_ID"; // Must start with "task-"
+    const REWARD_BLOCK_ID = "YOUR_REWARD_BLOCK_ID";  // Your numerical reward block ID
+
+    const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'demo_user' };
+    let selectedStyle = 'ordinary';
+
+    // Set Task Block ID dynamically
+    const taskEl = document.querySelector('adsgram-task');
+    taskEl.setAttribute('data-block-id', TASK_BLOCK_ID);
+
+    // Initialize Reward Ad Controller
+    const RewardAdController = window.Adsgram.init({
+      blockId: REWARD_BLOCK_ID,
+      debug: false
+    });
+
+    // DOM Elements
+    const postTextEl = document.getElementById('postText');
+    const textEmojiIdEl = document.getElementById('textEmojiId');
+    const insertEmojiBtn = document.getElementById('insertEmojiBtn');
+    const needButtonEl = document.getElementById('needButton');
+    const buttonConfigEl = document.getElementById('buttonConfig');
+    const btnTextEl = document.getElementById('btnText');
+    const btnUrlEl = document.getElementById('btnUrl');
+    const btnEmojiIdEl = document.getElementById('btnEmojiId');
+    const previewBtnEl = document.getElementById('previewBtn');
+    const taskAdContainer = document.getElementById('taskAdContainer');
+    const rewardAdBtn = document.getElementById('rewardAdBtn');
+    const adStatusBadge = document.getElementById('adStatusBadge');
+
+    // Tutorial Modal Controls
+    const tutorialModal = document.getElementById('tutorialModal');
+    document.getElementById('openTutorialBtn').addEventListener('click', () => {
+      tutorialModal.classList.remove('hidden');
+    });
+    document.getElementById('closeTutorialBtn').addEventListener('click', () => {
+      tutorialModal.classList.add('hidden');
+    });
+
+    // Insert [emoji:ID] into textarea
+    insertEmojiBtn.addEventListener('click', () => {
+      const id = textEmojiIdEl.value.trim();
+      if (!/^\d+$/.test(id)) {
+        tg.showAlert('Please paste a valid numeric Emoji ID first! Tap "Premium Emoji Tutorial" at the top to see how.');
+        return;
+      }
+      postTextEl.value += ` [emoji:${id}] `;
+      textEmojiIdEl.value = '';
+    });
+
+    // Show/Hide URL Button Builder
+    needButtonEl.addEventListener('change', (e) => {
+      buttonConfigEl.classList.toggle('hidden', !e.target.checked);
+    });
+
+    // Update Button Live Preview
+    function updatePreview() {
+      const hasEmoji = /^\d+$/.test(btnEmojiIdEl.value.trim());
+      const prefix = hasEmoji ? '✨ ' : '';
+      previewBtnEl.textContent = prefix + (btnTextEl.value.trim() || 'Visit Link');
+    }
+    btnTextEl.addEventListener('input', updatePreview);
+    btnEmojiIdEl.addEventListener('input', updatePreview);
+
+    // Handle 4 Button Color Options
+    document.querySelectorAll('.style-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.style-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedStyle = opt.dataset.style;
+        previewBtnEl.style.background = opt.dataset.bg;
+        updatePreview();
+      });
+    });
+
+    // Validate before showing Ad or Publishing
+    function validateInputs() {
+      if (!postTextEl.value.trim()) {
+        tg.showAlert('Please write your message before completing the ad!');
+        return false;
+      }
+      if (needButtonEl.checked) {
+        const u = btnUrlEl.value.trim();
+        if (!u.startsWith('https://') && !u.startsWith('http://') && !u.startsWith('tg://')) {
+          tg.showAlert('Button URL must start with https:// or tg://');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Check Daily Ad Status from /api/status
+    async function loadAdStatus() {
+      try {
+        const res = await fetch(`/api/status?userId=${user.id}`);
+        const data = await res.json();
+        renderAdMode(data.postsToday, data.requiredAdType);
+      } catch (e) {
+        renderAdMode(0, 'task');
+      }
+    }
+
+    function renderAdMode(postsToday, mode) {
+      if (mode === 'task') {
+        adStatusBadge.textContent = '🌟 Today\'s 1st Post: Task Ad Required (1/day)';
+        taskAdContainer.classList.remove('hidden');
+        rewardAdBtn.classList.add('hidden');
+      } else {
+        adStatusBadge.textContent = `🔁 Posts Today: ${postsToday} | Next: Reward Ad`;
+        taskAdContainer.classList.add('hidden');
+        rewardAdBtn.classList.remove('hidden');
+      }
+    }
+
+    // Call /api/publish after Ad succeeds
+    async function publishPost() {
+      try {
+        const res = await fetch('/api/publish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: user.id,
+            username: user.username,
+            text: postTextEl.value.trim(),
+            includeButton: needButtonEl.checked,
+            buttonText: btnTextEl.value.trim(),
+            buttonUrl: btnUrlEl.value.trim(),
+            buttonStyle: selectedStyle,
+            buttonEmojiId: btnEmojiIdEl.value.trim()
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          tg.showAlert('✅ Published to @Big_refferal_chat!');
+          postTextEl.value = '';
+          renderAdMode(data.postsToday, data.nextAdType);
+        } else {
+          tg.showAlert('❌ ' + (data.error || 'Failed to publish'));
+        }
+      } catch (err) {
+        tg.showAlert('❌ Network error while publishing.');
+      }
+    }
+
+    // 1. Task Ad Completed (1st Post of the day)
+    taskEl.addEventListener('reward', () => {
+      if (!validateInputs()) return;
+      publishPost();
+    });
+
+    // 2. Reward Ad Button Clicked (2nd+ Posts of the day)
+    rewardAdBtn.addEventListener('click', async () => {
+      if (!validateInputs()) return;
+      try {
+        const result = await RewardAdController.show();
+        if (result.done) {
+          await publishPost();
+        }
+      } catch (e) {
+        tg.showAlert('You must watch the reward ad to the end to publish your post.');
+      }
+    });
+
+    loadAdStatus();
+  </script>
+</body>
+</html>
