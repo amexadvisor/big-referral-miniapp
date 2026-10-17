@@ -32,247 +32,91 @@
       padding: 16px 15px 44px;
       min-height: 100vh;
     }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
     .brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
+      width: 42px; height: 42px; border-radius: 13px; background: var(--accent);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
       box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
     }
     .brand-text h1 { font-size: 17px; font-weight: 800; margin: 0; }
     .brand-text p { font-size: 11px; color: var(--muted); margin: 2px 0 0; }
     .guide-pill {
-      background: rgba(99, 102, 241, 0.2);
-      border: 1px solid rgba(99, 102, 241, 0.5);
-      color: #c7d2fe;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
+      background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.5);
+      color: #c7d2fe; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; cursor: pointer;
     }
-
     .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
+      background: var(--glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); border-radius: 18px; padding: 16px; margin-bottom: 14px;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
     }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: #a5b4fc;
-      margin: 0;
-    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #a5b4fc; margin: 0; }
     .char-count { font-size: 11px; color: var(--muted); }
-
     textarea, input[type="text"], input[type="url"] {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      background: var(--input-bg);
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-      margin-bottom: 12px;
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--glass-border);
+      background: var(--input-bg); color: var(--text); font-size: 14px; outline: none; margin-bottom: 12px;
     }
     textarea:focus, input:focus { border-color: #6366f1; }
-
     .emoji-bar { display: flex; gap: 8px; }
     .emoji-bar input { margin-bottom: 0; flex: 1; }
     .btn-secondary {
-      background: rgba(59, 130, 246, 0.22);
-      border: 1px solid rgba(59, 130, 246, 0.55);
-      color: #93c5fd;
-      border-radius: 12px;
-      padding: 0 14px;
-      font-weight: 700;
-      font-size: 12px;
-      cursor: pointer;
-      white-space: nowrap;
+      background: rgba(59, 130, 246, 0.22); border: 1px solid rgba(59, 130, 246, 0.55);
+      color: #93c5fd; border-radius: 12px; padding: 0 14px; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap;
     }
-
     .upload-zone {
-      border: 2px dashed rgba(148, 163, 184, 0.35);
-      border-radius: 14px;
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.45);
+      border: 2px dashed rgba(148, 163, 184, 0.35); border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; background: rgba(15, 23, 42, 0.45);
     }
     .upload-zone p { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
+    .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
     .media-thumb {
-      position: relative;
-      height: 82px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--glass-border);
-      background: #000;
+      position: relative; height: 82px; border-radius: 10px; overflow: hidden; border: 1px solid var(--glass-border); background: #000;
     }
     .media-thumb img, .media-thumb video { width: 100%; height: 100%; object-fit: cover; }
-    .media-badge {
-      position: absolute;
-      bottom: 4px;
-      left: 4px;
-      background: rgba(0,0,0,0.75);
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
+    .media-badge { position: absolute; bottom: 4px; left: 4px; background: rgba(0,0,0,0.75); font-size: 10px; padding: 2px 6px; border-radius: 6px; }
     .remove-media {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(220, 38, 38, 0.92);
-      color: #fff;
-      border: none;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
+      position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(220, 38, 38, 0.92); color: #fff; border: none; font-size: 13px; font-weight: bold; cursor: pointer;
     }
-
     .switch-row { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
     .switch {
-      position: relative;
-      width: 46px;
-      height: 26px;
-      background: #334155;
-      border-radius: 999px;
-      transition: 0.25s;
+      position: relative; width: 46px; height: 26px; background: #334155; border-radius: 999px; transition: 0.25s;
     }
     .switch::after {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 20px;
-      height: 20px;
-      background: #fff;
-      border-radius: 50%;
-      transition: 0.25s;
+      content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.25s;
     }
     input:checked + .switch { background: #6366f1; }
     input:checked + .switch::after { transform: translateX(20px); }
-
     .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 8px 0 10px; }
     .color-pill {
-      padding: 11px 10px;
-      border-radius: 11px;
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-      cursor: pointer;
-      color: #fff;
-      border: 2px solid transparent;
+      padding: 11px 10px; border-radius: 11px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; color: #fff; border: 2px solid transparent;
     }
     .color-pill.selected { border-color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-
-    /* Payout Proof Section for AdsGram Moderation */
     .payout-feed {
-      font-size: 12px;
-      max-height: 120px;
-      overflow-y: auto;
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 10px;
-      padding: 8px 10px;
-      border: 1px solid var(--glass-border);
+      font-size: 12px; max-height: 120px; overflow-y: auto; background: rgba(15, 23, 42, 0.6);
+      border-radius: 10px; padding: 8px 10px; border: 1px solid var(--glass-border);
     }
-    .payout-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
+    .payout-item { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .payout-item:last-child { border-bottom: none; }
     .payout-item a { color: #38bdf8; text-decoration: none; }
-
     .publish-cta {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 16px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
+      width: 100%; padding: 16px; border: none; border-radius: 16px; background: var(--accent);
+      color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
     }
     .publish-cta:disabled { opacity: 0.6; cursor: not-allowed; }
     .rules-note { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
     .hidden { display: none !important; }
-
     .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 1000;
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 1000;
     }
     .modal-sheet {
-      background: #1e293b;
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      max-width: 420px;
-      width: 100%;
-      padding: 20px;
-      max-height: 88vh;
-      overflow-y: auto;
+      background: #1e293b; border: 1px solid var(--glass-border); border-radius: 20px; max-width: 420px; width: 100%; padding: 20px; max-height: 88vh; overflow-y: auto;
     }
     .modal-sheet h3 { margin: 0 0 8px; font-size: 18px; }
     .modal-sheet p { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 0; }
     .modal-close {
-      margin-top: 12px;
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid var(--glass-border);
-      background: transparent;
-      color: var(--text);
-      font-weight: 600;
-      cursor: pointer;
+      margin-top: 12px; width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--glass-border); background: transparent; color: var(--text); font-weight: 600; cursor: pointer;
     }
     .code-chip { background: #0f172a; color: #38bdf8; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; }
   </style>
@@ -290,7 +134,6 @@
     <button class="guide-pill" id="openTutorialBtn">✨ Emoji Guide</button>
   </div>
 
-  <!-- STEP 1: Message Composer -->
   <div class="glass-card">
     <div class="card-header">
       <span class="section-title">📝 1. Your Message</span>
@@ -307,7 +150,6 @@
     </div>
   </div>
 
-  <!-- STEP 2: Media Uploader -->
   <div class="glass-card">
     <div class="card-header">
       <span class="section-title">🖼️ 2. Photos & Videos (Optional)</span>
@@ -324,7 +166,6 @@
     <div class="media-grid" id="mediaGrid"></div>
   </div>
 
-  <!-- STEP 3: URL Button & Native Colors -->
   <div class="glass-card">
     <label class="switch-row">
       <span style="font-size:14px; font-weight:700;">🔗 3. Add Inline URL Button</span>
@@ -364,7 +205,7 @@
     </div>
   </div>
 
-  <!-- STEP 4: Live Verified Payout Confirmations (AdsGram Moderation Compliance) -->
+  <!-- Live Verified Payout Confirmations for AdsGram Moderation -->
   <div class="glass-card">
     <div class="card-header">
       <span class="section-title">🎁 Live Verified Payouts & Proof</span>
@@ -378,27 +219,25 @@
     </div>
   </div>
 
-  <!-- PUBLISH BUTTON -->
   <button id="publishBtn" class="publish-cta">
     🚀 Publish Post
   </button>
   <div class="rules-note">
-    Protected by anti-sybil device verification. 1 Task Ad per day.
+    Protected by anti-sybil device verification. Task ad per day.
   </div>
 
-  <!-- DYNAMIC TASK AD MODAL (AdsGram Test Task ID: task-54445) -->
+  <!-- TASK AD MODAL (Task Block: task-54445) -->
   <div id="taskAdModal" class="modal-backdrop hidden">
     <div class="modal-sheet">
       <h3>🌟 Complete Daily Sponsor Task</h3>
       <p>
-        Complete this 1 daily sponsor task to publish your post to <b>@Big_refferal_chat</b>. (Strictly 1 task verification per day/device).
+        Complete this daily sponsor task to publish your post to <b>@Big_refferal_chat</b>. (Strictly 1 task verification per device per day).
       </p>
       <div id="dynamicTaskSlot" style="margin: 14px 0; min-height: 70px;"></div>
       <button class="modal-close" id="closeTaskModalBtn">Cancel</button>
     </div>
   </div>
 
-  <!-- BANNED MODAL -->
   <div id="bannedModal" class="modal-backdrop hidden">
     <div class="modal-sheet" style="text-align:center;">
       <h3 style="color:#ef4444;">🚫 Access Restricted</h3>
@@ -406,7 +245,6 @@
     </div>
   </div>
 
-  <!-- TUTORIAL MODAL -->
   <div id="tutorialModal" class="modal-backdrop hidden">
     <div class="modal-sheet">
       <h3>✨ Premium Emoji & Color Guide</h3>
@@ -426,14 +264,13 @@
     tg.ready();
 
     // ========================================================
-    // ADSGRAM TEST TASK ID
+    // CORRECTED ADSGRAM BLOCKS: TASK = task-54445 | REWARD = 54445
     // ========================================================
     const TASK_BLOCK_ID = "task-54445"; 
-    const REWARD_BLOCK_ID = 54445"; // Replace with your numeric reward block ID
+    const REWARD_BLOCK_ID = "54445"; 
 
     const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'member', first_name: 'Member' };
 
-    // Generate or retrieve stable device fingerprint to prevent multiple accounts on one device
     function getDeviceFingerprint() {
       let fId = localStorage.getItem('device_fingerprint');
       if (!fId) {
@@ -456,7 +293,6 @@
       });
     }
 
-    // Anti-Sybil Multi-Account & Daily Task Lock
     function getTodayStr() { return new Date().toISOString().split('T')[0]; }
     function getLocalTaskLockKey() { return `task_locked_${user.id}_${getTodayStr()}`; }
 
@@ -502,7 +338,6 @@
       `).join('');
     }
 
-    // DOM Elements
     const postTextEl = document.getElementById('postText');
     const charCountEl = document.getElementById('charCount');
     const textEmojiIdEl = document.getElementById('textEmojiId');
@@ -636,7 +471,7 @@
           await executePublish('reward');
         }
       } catch (err) {
-        tg.showAlert('Please complete the ad to publish.');
+        tg.showAlert('Please complete the reward ad (54445) to publish.');
       }
     }
 
