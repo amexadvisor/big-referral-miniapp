@@ -119,6 +119,19 @@
       margin-top: 12px; width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--glass-border); background: transparent; color: var(--text); font-weight: 600; cursor: pointer;
     }
     .code-chip { background: #0f172a; color: #38bdf8; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; }
+
+    /* AdsGram task component styling */
+    adsgram-task.task {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 12px; border-radius: 12px; background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--glass-border); color: var(--text); font-size: 13px;
+    }
+    .task-reward { font-size: 12px; color: var(--muted); }
+    .task-button {
+      display: inline-block; padding: 8px 16px; border-radius: 10px; background: var(--accent);
+      color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;
+    }
+    .task-done { background: #16a34a; }
   </style>
 </head>
 <body>
@@ -264,18 +277,27 @@
     tg.ready();
 
     // ========================================================
-    // CORRECTED ADSGRAM BLOCKS: TASK = task-54445 | REWARD = 54445
+    // ADSGRAM BLOCKS
+    // TASK_BLOCK_ID   : must start with "task-"  (used by <adsgram-task>)
+    // REWARD_BLOCK_ID : numeric ID of a *Rewarded Video* block, created
+    //                   separately in partner.adsgram.ai. Leave "" until
+    //                   you have one. It must NOT be the task block number.
     // ========================================================
-    const TASK_BLOCK_ID = "task-54445"; 
-    const REWARD_BLOCK_ID = "task-54445"; 
+    const TASK_BLOCK_ID = "task-54445";
+    const REWARD_BLOCK_ID = ""; // e.g. "12345"
+
+    // If no reward block is configured (or no ad is available), still publish.
+    // Set to false if you want to block publishing when no ad can be shown.
+    const ALLOW_PUBLISH_WITHOUT_AD = true;
 
     const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'member', first_name: 'Member' };
 
     function getDeviceFingerprint() {
-      let fId = localStorage.getItem('device_fingerprint');
+      let fId = null;
+      try { fId = localStorage.getItem('device_fingerprint'); } catch (e) {}
       if (!fId) {
         fId = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-        localStorage.setItem('device_fingerprint', fId);
+        try { localStorage.setItem('device_fingerprint', fId); } catch (e) {}
       }
       return fId;
     }
@@ -285,12 +307,18 @@
     let uploadedMedia = [];
     let isUploadingMedia = false;
 
+    // Rewarded video controller (safe init, never crashes the page)
     let RewardAdController = null;
-    if (window.Adsgram) {
-      RewardAdController = window.Adsgram.init({
-        blockId: REWARD_BLOCK_ID,
-        debug: false
-      });
+    try {
+      if (window.Adsgram && REWARD_BLOCK_ID) {
+        RewardAdController = window.Adsgram.init({
+          blockId: REWARD_BLOCK_ID,
+          debug: false
+        });
+      }
+    } catch (e) {
+      console.warn('Adsgram reward init failed:', e);
+      RewardAdController = null;
     }
 
     function getTodayStr() { return new Date().toISOString().split('T')[0]; }
@@ -299,14 +327,16 @@
     function setAllClientTaskLocks() {
       const key = getLocalTaskLockKey();
       try { localStorage.setItem(key, '1'); } catch (e) {}
-      if (tg.CloudStorage) tg.CloudStorage.setItem(key, '1', () => {});
+      if (tg.CloudStorage) {
+        try { tg.CloudStorage.setItem(key, '1', () => {}); } catch (e) {}
+      }
     }
 
     async function checkAccountAndDeviceStatus() {
       try {
         const res = await fetch(`/api/status?userId=${user.id}&deviceId=${deviceId}`);
         const data = await res.json();
-        
+
         if (data.isBanned) {
           document.getElementById('bannedModal').classList.remove('hidden');
           document.getElementById('publishBtn').disabled = true;
@@ -446,7 +476,11 @@
         const delBtn = document.createElement('button');
         delBtn.className = 'remove-media';
         delBtn.textContent = '×';
-        delBtn.onclick = () => { uploadedMedia.splice(index, 1); renderMediaThumbnails(); };
+        delBtn.onclick = () => {
+          uploadedMedia.splice(index, 1);
+          renderMediaThumbnails();
+          mediaCountLabel.textContent = `${uploadedMedia.length} / 10 files`;
+        };
         div.appendChild(delBtn);
         mediaGrid.appendChild(div);
       });
@@ -460,29 +494,70 @@
       return true;
     }
 
+    // ----- Rewarded video (fallback / second+ posts of the day) -----
     async function triggerRewardAdAndPublish() {
       if (!RewardAdController) {
-        await executePublish('reward');
+        if (ALLOW_PUBLISH_WITHOUT_AD) {
+          await executePublish('none');
+        } else {
+          tg.showAlert('Ads are not available right now. Please try again later.');
+        }
         return;
       }
       try {
         const result = await RewardAdController.show();
         if (result && result.done) {
           await executePublish('reward');
+        } else {
+          tg.showAlert('Please watch the full ad to publish.');
         }
       } catch (err) {
-        tg.showAlert('Please complete the reward ad (54445) to publish.');
+        // AdsGram rejects with { error, done, state, description }
+        console.warn('Reward ad error:', err);
+        if (ALLOW_PUBLISH_WITHOUT_AD) {
+          await executePublish('none');
+        } else {
+          tg.showAlert('No ad available at the moment. Please try again shortly.');
+        }
       }
     }
 
-    function openOnDemandTaskAdModal() {
+    // ----- Task ad -----
+    async function openOnDemandTaskAdModal() {
       dynamicTaskSlot.innerHTML = '';
-      const taskElement = document.createElement('adsgram-task');
-      taskElement.className = 'task';
-      taskElement.setAttribute('data-block-id', TASK_BLOCK_ID);
-      taskElement.setAttribute('data-debug', 'false');
+      taskAdModal.classList.remove('hidden');
+
+      // Make sure the AdsGram web component is registered before inserting it.
+      try {
+        await Promise.race([
+          customElements.whenDefined('adsgram-task'),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('adsgram-task not loaded')), 4000))
+        ]);
+      } catch (e) {
+        console.warn(e);
+        taskAdModal.classList.add('hidden');
+        await triggerRewardAdAndPublish();
+        return;
+      }
+
+      // IMPORTANT: build the element from an HTML string so that
+      // data-block-id already exists when the component initializes.
+      // (createElement + setAttribute can make the SDK read an empty ID and
+      // throw "BlockId that you pass should starts with task-".)
+      dynamicTaskSlot.innerHTML = `
+        <adsgram-task class="task" data-block-id="${TASK_BLOCK_ID}" data-debug="false">
+          <span slot="reward" class="task-reward">Required</span>
+          <div slot="button" class="task-button">Go</div>
+          <div slot="done" class="task-button task-done">Done ✓</div>
+        </adsgram-task>
+      `;
+      const taskElement = dynamicTaskSlot.querySelector('adsgram-task');
+
+      let handled = false;
 
       taskElement.addEventListener('reward', async () => {
+        if (handled) return;
+        handled = true;
         setAllClientTaskLocks();
         taskAdModal.classList.add('hidden');
         dynamicTaskSlot.innerHTML = '';
@@ -490,16 +565,16 @@
       });
 
       const handleFallback = async () => {
+        if (handled) return;
+        handled = true;
         taskAdModal.classList.add('hidden');
         dynamicTaskSlot.innerHTML = '';
         await triggerRewardAdAndPublish();
       };
 
       taskElement.addEventListener('onBannerNotFound', handleFallback);
+      taskElement.addEventListener('onTooLongSession', handleFallback);
       taskElement.addEventListener('onError', handleFallback);
-
-      dynamicTaskSlot.appendChild(taskElement);
-      taskAdModal.classList.remove('hidden');
     }
 
     publishBtn.onclick = async () => {
@@ -514,9 +589,11 @@
       publishBtn.disabled = false;
       publishBtn.textContent = '🚀 Publish Post';
 
-      const localLocked = localStorage.getItem(getLocalTaskLockKey()) === '1';
+      let localLocked = false;
+      try { localLocked = localStorage.getItem(getLocalTaskLockKey()) === '1'; } catch (e) {}
+
       if (!localLocked && !status.taskDone) {
-        openOnDemandTaskAdModal();
+        await openOnDemandTaskAdModal();
       } else {
         await triggerRewardAdAndPublish();
       }
@@ -550,8 +627,11 @@
           setAllClientTaskLocks();
           tg.showAlert('🎉 Post published to @Big_refferal_chat!');
           postTextEl.value = '';
+          charCountEl.textContent = '0 / 1024';
           uploadedMedia = [];
           renderMediaThumbnails();
+          mediaCountLabel.textContent = '0 / 10 files';
+          uploadStatusText.textContent = 'Tap to Upload Photos or Videos';
           if (data.recentPayouts) renderPayoutFeed(data.recentPayouts);
         } else {
           tg.showAlert('❌ ' + (data.error || 'Failed'));
@@ -567,4 +647,4 @@
     checkAccountAndDeviceStatus();
   </script>
 </body>
-</html>
+        </html>
