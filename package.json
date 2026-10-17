@@ -1,0 +1,12 @@
+{
+  "name": "big-referral-miniapp",
+  "version": "1.0.0",
+  "description": "Telegram Mini App with AdsGram Task & Reward Ads + Native Button Styles",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx vercel dev"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.34.0"
+  }
+}
