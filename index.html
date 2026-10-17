@@ -6,14 +6,14 @@
   <title>Big Referral Studio</title>
   <!-- Telegram Mini App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- AdsGram SDK -->
+  <!-- AdsGram Official SDK -->
   <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <style>
     :root {
-      --bg-grad: linear-gradient(145deg, #090d16 0%, #111827 50%, #1e1b4b 100%);
-      --glass: rgba(30, 41, 59, 0.72);
+      --bg-grad: linear-gradient(150deg, #070b14 0%, #0f172a 55%, #1e1b4b 100%);
+      --glass: rgba(30, 41, 59, 0.75);
       --glass-border: rgba(255, 255, 255, 0.1);
-      --input-bg: rgba(15, 23, 42, 0.75);
+      --input-bg: rgba(15, 23, 42, 0.85);
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
@@ -29,11 +29,11 @@
       background-attachment: fixed;
       color: var(--text);
       margin: 0;
-      padding: 18px 16px 40px;
+      padding: 16px 15px 44px;
       min-height: 100vh;
     }
 
-    /* Top Header */
+    /* Header */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -46,21 +46,20 @@
       gap: 10px;
     }
     .brand-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
       background: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
     }
     .brand-text h1 {
       font-size: 17px;
       font-weight: 800;
       margin: 0;
-      letter-spacing: -0.3px;
     }
     .brand-text p {
       font-size: 12px;
@@ -68,17 +67,15 @@
       margin: 2px 0 0;
     }
     .guide-pill {
-      background: rgba(99, 102, 241, 0.18);
-      border: 1px solid rgba(99, 102, 241, 0.45);
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.5);
       color: #c7d2fe;
-      padding: 8px 12px;
+      padding: 8px 13px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: transform 0.15s;
     }
-    .guide-pill:active { transform: scale(0.95); }
 
     /* Glass Cards */
     .glass-card {
@@ -88,19 +85,26 @@
       border: 1px solid var(--glass-border);
       border-radius: 18px;
       padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
     .section-title {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.7px;
       color: #a5b4fc;
-      margin: 0 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      margin: 0;
+    }
+    .char-count {
+      font-size: 11px;
+      color: var(--muted);
     }
 
     textarea, input[type="text"], input[type="url"] {
@@ -112,27 +116,23 @@
       color: var(--text);
       font-size: 14px;
       outline: none;
-      transition: border-color 0.2s;
       margin-bottom: 12px;
     }
-    textarea:focus, input:focus {
-      border-color: #6366f1;
-    }
+    textarea:focus, input:focus { border-color: #6366f1; }
 
-    /* Emoji Quick Bar */
     .emoji-bar {
       display: flex;
       gap: 8px;
     }
     .emoji-bar input { margin-bottom: 0; flex: 1; }
     .btn-secondary {
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.5);
+      background: rgba(59, 130, 246, 0.22);
+      border: 1px solid rgba(59, 130, 246, 0.55);
       color: #93c5fd;
       border-radius: 12px;
       padding: 0 14px;
-      font-weight: 600;
-      font-size: 13px;
+      font-weight: 700;
+      font-size: 12px;
       cursor: pointer;
       white-space: nowrap;
     }
@@ -141,18 +141,12 @@
     .upload-zone {
       border: 2px dashed rgba(148, 163, 184, 0.35);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s;
-      background: rgba(15, 23, 42, 0.4);
+      background: rgba(15, 23, 42, 0.45);
     }
-    .upload-zone:hover { border-color: #6366f1; }
-    .upload-zone p {
-      margin: 6px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .upload-zone p { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
     .media-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -161,7 +155,7 @@
     }
     .media-thumb {
       position: relative;
-      height: 86px;
+      height: 82px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--glass-border);
@@ -176,7 +170,7 @@
       position: absolute;
       bottom: 4px;
       left: 4px;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.75);
       font-size: 10px;
       padding: 2px 6px;
       border-radius: 6px;
@@ -188,27 +182,20 @@
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: rgba(220, 38, 38, 0.9);
+      background: rgba(220, 38, 38, 0.92);
       color: #fff;
       border: none;
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* Modern Switch Toggle */
+    /* Switch */
     .switch-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-    }
-    .switch-label {
-      font-size: 14px;
-      font-weight: 600;
     }
     .switch {
       position: relative;
@@ -229,57 +216,56 @@
       border-radius: 50%;
       transition: 0.25s;
     }
-    input:checked + .switch {
-      background: #6366f1;
-    }
-    input:checked + .switch::after {
-      transform: translateX(20px);
-    }
+    input:checked + .switch { background: #6366f1; }
+    input:checked + .switch::after { transform: translateX(20px); }
 
-    /* 4 Button Color Selector */
+    /* 4 Button Colors */
     .color-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 8px 0 14px;
+      gap: 9px;
+      margin: 8px 0 10px;
     }
     .color-pill {
       padding: 11px 10px;
-      border-radius: 12px;
-      font-size: 13px;
+      border-radius: 11px;
+      font-size: 12px;
       font-weight: 700;
       text-align: center;
       cursor: pointer;
       color: #fff;
       border: 2px solid transparent;
-      transition: transform 0.15s, border-color 0.15s;
     }
     .color-pill.selected {
       border-color: #fff;
-      transform: scale(1.02);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
-    /* Telegram Live Button Preview */
-    .preview-box {
-      background: rgba(15, 23, 42, 0.65);
-      border-radius: 12px;
-      padding: 10px;
-      border: 1px solid var(--glass-border);
+    /* Live Telegram Message Preview (Great for AdsGram Moderation) */
+    .tg-preview-bubble {
+      background: #182533;
+      border-radius: 14px 14px 14px 4px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #f1f5f9;
+      border: 1px solid rgba(255,255,255,0.08);
+      word-break: break-word;
+      white-space: pre-wrap;
     }
-    .preview-btn {
+    .tg-preview-btn {
+      margin-top: 8px;
       width: 100%;
-      padding: 11px;
+      padding: 10px;
       border-radius: 10px;
       text-align: center;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       color: #fff;
       background: var(--ordinary);
-      transition: background 0.2s;
     }
 
-    /* Main Publish CTA */
+    /* Main CTA */
     .publish-cta {
       width: 100%;
       padding: 16px;
@@ -291,22 +277,23 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
-      transition: transform 0.15s, opacity 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
     }
-    .publish-cta:active { transform: scale(0.98); }
     .publish-cta:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .rules-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
 
     .hidden { display: none !important; }
 
-    /* Modals (Ad Gate Modal & Tutorial Modal) */
+    /* Modals */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.82);
       backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
@@ -323,12 +310,11 @@
       padding: 20px;
       max-height: 88vh;
       overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
     .modal-sheet h3 { margin: 0 0 8px; font-size: 18px; }
-    .modal-sheet p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .modal-sheet p { font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 0; }
     .modal-close {
-      margin-top: 14px;
+      margin-top: 12px;
       width: 100%;
       padding: 12px;
       border-radius: 12px;
@@ -341,36 +327,37 @@
     .code-chip {
       background: #0f172a;
       color: #38bdf8;
-      padding: 5px 9px;
+      padding: 4px 8px;
       border-radius: 6px;
       font-family: monospace;
       font-size: 12px;
-      display: inline-block;
-      margin: 4px 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Header -->
   <div class="top-bar">
     <div class="brand">
       <div class="brand-icon">📢</div>
       <div class="brand-text">
         <h1>Big Referral Studio</h1>
-        <p>Direct Poster for @Big_refferal_chat</p>
+        <p>Post Creator for @Big_refferal_chat</p>
       </div>
     </div>
     <button class="guide-pill" id="openTutorialBtn">✨ Emoji Guide</button>
   </div>
 
-  <!-- Card 1: Message & Premium Emoji -->
+  <!-- Step 1: Message Composer -->
   <div class="glass-card">
-    <div class="section-title">📝 Post Content</div>
-    <textarea id="postText" rows="4" placeholder="Write your referral post here... (No 'Posted by' will be shown!)"></textarea>
+    <div class="card-header">
+      <span class="section-title">📝 1. Your Message</span>
+      <span class="char-count" id="charCount">0 / 1024</span>
+    </div>
+    <textarea id="postText" rows="4" maxlength="1024" placeholder="Write your referral post, announcement, or promo here..."></textarea>
 
     <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:6px;">
-      Add Premium Emoji in Text (Optional)
+      Add Premium Emoji by ID (Optional)
     </label>
     <div class="emoji-bar">
       <input type="text" id="textEmojiId" placeholder="Paste 19-digit Emoji ID..." />
@@ -378,42 +365,45 @@
     </div>
   </div>
 
-  <!-- Card 2: Multi-Photo / Video Uploader -->
+  <!-- Step 2: Multi-Photo / Video Uploader -->
   <div class="glass-card">
-    <div class="section-title">🖼️ Photos & Videos (Optional • Up to 10)</div>
+    <div class="card-header">
+      <span class="section-title">🖼️ 2. Photos & Videos (Optional)</span>
+      <span class="char-count" id="mediaCountLabel">0 / 10 files</span>
+    </div>
     <input type="file" id="mediaInput" accept="image/*,video/*" multiple class="hidden" />
     <div class="upload-zone" id="uploadTrigger">
-      <div style="font-size:24px;">📤</div>
-      <div style="font-weight:700; font-size:14px; margin-top:4px;" id="uploadStatusText">
+      <div style="font-size:22px;">📤</div>
+      <div style="font-weight:700; font-size:13px; margin-top:4px;" id="uploadStatusText">
         Tap to Upload Photos or Videos
       </div>
-      <p>Supports multiple photos & short videos (max 4MB per file)</p>
+      <p>Attach 1 or multiple photos/videos (up to 4MB each)</p>
     </div>
     <div class="media-grid" id="mediaGrid"></div>
   </div>
 
-  <!-- Card 3: Inline URL Button & Native Colors -->
+  <!-- Step 3: URL Button & Native Colors -->
   <div class="glass-card">
     <label class="switch-row">
-      <span class="switch-label">🔗 Add Inline URL Button</span>
+      <span style="font-size:14px; font-weight:700;">🔗 3. Add Inline URL Button</span>
       <input type="checkbox" id="needButton" class="hidden" />
       <div class="switch"></div>
     </label>
 
-    <div id="buttonConfig" class="hidden" style="margin-top:16px; border-top:1px solid var(--glass-border); padding-top:14px;">
-      <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">Button Text</label>
-      <input type="text" id="btnText" value="Join Now" placeholder="e.g. Join Referral Link" />
+    <div id="buttonConfig" class="hidden" style="margin-top:14px; border-top:1px solid var(--glass-border); padding-top:14px;">
+      <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">Button Label</label>
+      <input type="text" id="btnText" value="Join Referral Now" placeholder="Button Text" />
 
-      <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">Target URL</label>
+      <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">Destination Link</label>
       <input type="url" id="btnUrl" placeholder="https://t.me/..." />
 
       <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">
-        Button Premium Emoji ID (Optional animated icon)
+        Button Premium Emoji ID (Optional icon)
       </label>
       <input type="text" id="btnEmojiId" placeholder="e.g. 5368324170671202286" />
 
       <label style="font-size:12px; color:var(--muted); display:block; margin-bottom:5px;">
-        Choose Button Color
+        Select Button Color
       </label>
       <div class="color-grid">
         <div class="color-pill selected" data-style="ordinary" data-bg="#334155" style="background:#334155;">
@@ -429,29 +419,36 @@
           4. Red ("danger")
         </div>
       </div>
-
-      <div class="preview-box">
-        <div style="font-size:11px; color:var(--muted); margin-bottom:6px;">LIVE BUTTON PREVIEW</div>
-        <div id="previewBtn" class="preview-btn">Join Now</div>
-      </div>
     </div>
   </div>
 
-  <!-- MAIN PUBLISH BUTTON (Triggers Ad ONLY when clicked!) -->
+  <!-- Step 4: Live Telegram Group Preview -->
+  <div class="glass-card">
+    <div class="card-header">
+      <span class="section-title">👀 Live Group Preview</span>
+      <span class="char-count">@Big_refferal_chat</span>
+    </div>
+    <div class="tg-preview-bubble" id="liveTextPreview">Your post preview will appear here...</div>
+    <div id="liveBtnPreview" class="tg-preview-btn hidden">Join Referral Now</div>
+  </div>
+
+  <!-- PUBLISH BUTTON (Ads only trigger AFTER tapping this button) -->
   <button id="publishBtn" class="publish-cta">
     🚀 Publish Post
   </button>
+  <div class="rules-note">
+    Sponsor ad verification starts only after you tap Publish Post.
+  </div>
 
-  <!-- TASK AD MODAL (Only pops up when user taps Publish on their 1st post of the day) -->
+  <!-- DYNAMIC TASK AD MODAL (Only mounts <adsgram-task> on-demand if Task hasn't been done today) -->
   <div id="taskAdModal" class="modal-backdrop hidden">
     <div class="modal-sheet">
-      <h3>🌟 Complete 1 Task to Publish</h3>
+      <h3>🌟 Complete Daily Sponsor Task</h3>
       <p>
-        For your <b>first post of the day</b>, complete the quick task below. Your post will automatically publish to <b>@Big_refferal_chat</b> the moment it completes!
+        Complete this 1 daily sponsor task to publish your post to <b>@Big_refferal_chat</b>. (Only required once per day!)
       </p>
-      <div style="margin: 14px 0;">
-        <adsgram-task data-block-id="task-54445" data-debug="false" class="task"></adsgram-task>
-      </div>
+      <!-- Dynamic container: <adsgram-task> is injected here ONLY when opened -->
+      <div id="dynamicTaskSlot" style="margin: 14px 0; min-height: 70px;"></div>
       <button class="modal-close" id="closeTaskModalBtn">Cancel</button>
     </div>
   </div>
@@ -463,74 +460,154 @@
       <ol style="padding-left:18px; font-size:13px; line-height:1.65; color:#e2e8f0;">
         <li>
           <b>Get Any Premium Emoji ID:</b><br/>
-          Send any <b>Premium Emoji</b> directly to this Bot in private chat. The Bot will immediately reply with its 19-digit ID!
+          Send any <b>Premium Emoji</b> to this Bot in private chat. The Bot will immediately reply with its 19-digit ID!
         </li>
         <li>
           <b>Use in Post Text:</b><br/>
-          Paste the ID in the <i>Add Premium Emoji</i> box and tap <b>+ Insert</b>. It adds <span class="code-chip">[emoji:ID]</span> which turns into a real animated emoji in the group!
+          Paste the ID in <i>Add Premium Emoji by ID</i> and tap <b>+ Insert</b>. It adds <span class="code-chip">[emoji:ID]</span> which becomes an animated emoji in the group.
         </li>
         <li>
           <b>Use on URL Button:</b><br/>
-          Paste the 19-digit ID into <i>Button Premium Emoji ID</i> to place an animated icon on your colored button.
+          Paste the 19-digit ID into <i>Button Premium Emoji ID</i> to display an animated icon on your colored button.
         </li>
         <li>
-          <b>Button Colors:</b><br/>
-          Choose between <b>Ordinary</b>, <b>Blue</b>, <b>Green ("success")</b>, or <b>Red ("danger")</b>.
+          <b>4 Button Colors:</b><br/>
+          Choose <b>1. Ordinary</b>, <b>2. Blue</b>, <b>3. Green ("success")</b>, or <b>4. Red ("danger")</b>.
         </li>
       </ol>
-      <button class="publish-cta" id="closeTutorialBtn" style="margin-top:10px; padding:12px;">Got It!</button>
+      <button class="publish-cta" id="closeTutorialBtn" style="padding:12px;">Got It!</button>
     </div>
   </div>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
+    tg.ready();
 
     // ========================================================
     // REPLACE THESE 2 IDS WITH YOUR REAL ADSGRAM BLOCK IDS
     // ========================================================
     const TASK_BLOCK_ID = "task-54445"; // Starts with "task-"
-    const REWARD_BLOCK_ID = "54445";  // Numerical ID
+    const REWARD_BLOCK_ID = "54445";  // Numerical Block ID
 
-    const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'demo_user', first_name: 'User' };
+    const user = tg.initDataUnsafe?.user || { id: 123456789, username: 'member', first_name: 'Member' };
 
     let selectedStyle = 'ordinary';
-    let requiredAdType = 'task'; // Fetched from /api/status ('task' for 1st post today, 'reward' for 2nd+)
-    let uploadedMedia = [];      // Array of { type: 'photo'|'video', file_id, previewUrl }
+    let uploadedMedia = [];
     let isUploadingMedia = false;
 
-    // Configure AdsGram
-    const taskEl = document.querySelector('adsgram-task');
-    taskEl.setAttribute('data-block-id', TASK_BLOCK_ID);
+    // Initialize Reward Ad Controller
+    let RewardAdController = null;
+    if (window.Adsgram) {
+      RewardAdController = window.Adsgram.init({
+        blockId: REWARD_BLOCK_ID,
+        debug: false
+      });
+    }
 
-    const RewardAdController = window.Adsgram.init({
-      blockId: REWARD_BLOCK_ID,
-      debug: false
-    });
+    // =========================================================================
+    // TRIPLE-LAYER 1-TASK-PER-DAY LOCK (Server + CloudStorage + localStorage)
+    // Guarantees the Task Block Ad is NEVER shown or asked for more than 1x/day
+    // =========================================================================
+    function getTodayStr() {
+      return new Date().toISOString().split('T')[0];
+    }
 
-    // DOM References
+    function getLocalTaskLockKey() {
+      return `task_locked_${user.id}_${getTodayStr()}`;
+    }
+
+    function getCloudStorageLock(key) {
+      return new Promise((resolve) => {
+        if (!tg.CloudStorage) return resolve(false);
+        tg.CloudStorage.getItem(key, (err, val) => {
+          resolve(!err && val === '1');
+        });
+      });
+    }
+
+    function setAllClientTaskLocks() {
+      const key = getLocalTaskLockKey();
+      try { localStorage.setItem(key, '1'); } catch (e) {}
+      if (tg.CloudStorage) {
+        tg.CloudStorage.setItem(key, '1', () => {});
+      }
+    }
+
+    async function hasCompletedTaskToday() {
+      const key = getLocalTaskLockKey();
+      // 1. Check browser localStorage
+      if (localStorage.getItem(key) === '1') return true;
+      // 2. Check Telegram CloudStorage
+      const cloudLocked = await getCloudStorageLock(key);
+      if (cloudLocked) {
+        try { localStorage.setItem(key, '1'); } catch (e) {}
+        return true;
+      }
+      // 3. Check Backend Server (/api/status)
+      try {
+        const res = await fetch(`/api/status?userId=${user.id}`);
+        const data = await res.json();
+        if (data.taskCompletedToday || data.requiredAdType === 'reward' || data.postsToday >= 1) {
+          setAllClientTaskLocks();
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+
+    // DOM Elements
     const postTextEl = document.getElementById('postText');
+    const charCountEl = document.getElementById('charCount');
     const textEmojiIdEl = document.getElementById('textEmojiId');
     const mediaInput = document.getElementById('mediaInput');
     const uploadTrigger = document.getElementById('uploadTrigger');
     const uploadStatusText = document.getElementById('uploadStatusText');
+    const mediaCountLabel = document.getElementById('mediaCountLabel');
     const mediaGrid = document.getElementById('mediaGrid');
     const needButtonEl = document.getElementById('needButton');
     const buttonConfigEl = document.getElementById('buttonConfig');
     const btnTextEl = document.getElementById('btnText');
     const btnUrlEl = document.getElementById('btnUrl');
     const btnEmojiIdEl = document.getElementById('btnEmojiId');
-    const previewBtnEl = document.getElementById('previewBtn');
+    const liveTextPreview = document.getElementById('liveTextPreview');
+    const liveBtnPreview = document.getElementById('liveBtnPreview');
     const publishBtn = document.getElementById('publishBtn');
     const taskAdModal = document.getElementById('taskAdModal');
+    const dynamicTaskSlot = document.getElementById('dynamicTaskSlot');
     const tutorialModal = document.getElementById('tutorialModal');
 
     // Modals
     document.getElementById('openTutorialBtn').onclick = () => tutorialModal.classList.remove('hidden');
     document.getElementById('closeTutorialBtn').onclick = () => tutorialModal.classList.add('hidden');
-    document.getElementById('closeTaskModalBtn').onclick = () => taskAdModal.classList.add('hidden');
+    document.getElementById('closeTaskModalBtn').onclick = () => {
+      taskAdModal.classList.add('hidden');
+      dynamicTaskSlot.innerHTML = ''; // Destroy task element when closed
+    };
 
-    // Insert [emoji:ID] into message text
+    // Live Group Preview Updater
+    function updateLivePreview() {
+      const raw = postTextEl.value;
+      charCountEl.textContent = `${raw.length} / 1024`;
+      const formatted = raw.trim()
+        ? raw.replace(/\[emoji:\d+\]/g, '⭐')
+        : (uploadedMedia.length > 0 ? `[${uploadedMedia.length} Media File(s) Attached]` : 'Your post preview will appear here...');
+      liveTextPreview.textContent = formatted;
+
+      if (needButtonEl.checked) {
+        liveBtnPreview.classList.remove('hidden');
+        const hasEmoji = /^\d+$/.test(btnEmojiIdEl.value.trim());
+        liveBtnPreview.textContent = (hasEmoji ? '✨ ' : '') + (btnTextEl.value.trim() || 'Visit Link');
+      } else {
+        liveBtnPreview.classList.add('hidden');
+      }
+    }
+
+    postTextEl.oninput = updateLivePreview;
+    btnTextEl.oninput = updateLivePreview;
+    btnEmojiIdEl.oninput = updateLivePreview;
+
+    // Insert [emoji:ID]
     document.getElementById('insertEmojiBtn').onclick = () => {
       const id = textEmojiIdEl.value.trim();
       if (!/^\d+$/.test(id)) {
@@ -539,33 +616,27 @@
       }
       postTextEl.value += ` [emoji:${id}] `;
       textEmojiIdEl.value = '';
+      updateLivePreview();
     };
 
-    // Toggle Inline Button section
+    // Toggle Inline URL Button
     needButtonEl.onchange = (e) => {
       buttonConfigEl.classList.toggle('hidden', !e.target.checked);
+      updateLivePreview();
     };
 
-    // Live Button Preview
-    function updateButtonPreview() {
-      const hasEmoji = /^\d+$/.test(btnEmojiIdEl.value.trim());
-      previewBtnEl.textContent = (hasEmoji ? '✨ ' : '') + (btnTextEl.value.trim() || 'Visit Link');
-    }
-    btnTextEl.oninput = updateButtonPreview;
-    btnEmojiIdEl.oninput = updateButtonPreview;
-
-    // Color Selection
+    // Button Color Selection
     document.querySelectorAll('.color-pill').forEach(pill => {
       pill.onclick = () => {
         document.querySelectorAll('.color-pill').forEach(p => p.classList.remove('selected'));
         pill.classList.add('selected');
         selectedStyle = pill.dataset.style;
-        previewBtnEl.style.background = pill.dataset.bg;
-        updateButtonPreview();
+        liveBtnPreview.style.background = pill.dataset.bg;
+        updateLivePreview();
       };
     });
 
-    // Multi-Photo / Video Upload Handler
+    // Multi-Photo & Video Upload
     uploadTrigger.onclick = () => {
       if (isUploadingMedia) return;
       if (uploadedMedia.length >= 10) {
@@ -594,7 +665,7 @@
       for (const file of files) {
         if (uploadedMedia.length >= 10) break;
         if (file.size > 4.2 * 1024 * 1024) {
-          tg.showAlert(`"${file.name}" is larger than 4MB. Please pick a smaller file.`);
+          tg.showAlert(`"${file.name}" exceeds 4MB. Please choose a smaller file.`);
           continue;
         }
 
@@ -626,13 +697,19 @@
         }
       }
 
-      uploadStatusText.textContent = uploadedMedia.length > 0
-        ? `✅ ${uploadedMedia.length}/10 Media Attached (Tap to add more)`
-        : 'Tap to Upload Photos or Videos';
+      updateMediaCounterUI();
       isUploadingMedia = false;
       publishBtn.disabled = false;
       mediaInput.value = '';
     };
+
+    function updateMediaCounterUI() {
+      mediaCountLabel.textContent = `${uploadedMedia.length} / 10 files`;
+      uploadStatusText.textContent = uploadedMedia.length > 0
+        ? `✅ ${uploadedMedia.length} Media Attached (Tap to add more)`
+        : 'Tap to Upload Photos or Videos';
+      updateLivePreview();
+    }
 
     function renderMediaThumbnails() {
       mediaGrid.innerHTML = '';
@@ -649,9 +726,7 @@
         delBtn.onclick = () => {
           uploadedMedia.splice(index, 1);
           renderMediaThumbnails();
-          uploadStatusText.textContent = uploadedMedia.length > 0
-            ? `✅ ${uploadedMedia.length}/10 Media Attached (Tap to add more)`
-            : 'Tap to Upload Photos or Videos';
+          updateMediaCounterUI();
         };
 
         div.appendChild(delBtn);
@@ -659,20 +734,9 @@
       });
     }
 
-    // Check user's daily status silently in background
-    async function syncAdStatus() {
-      try {
-        const res = await fetch(`/api/status?userId=${user.id}`);
-        const data = await res.json();
-        requiredAdType = data.requiredAdType; // 'task' or 'reward'
-      } catch (e) {
-        requiredAdType = 'task';
-      }
-    }
-
     function validatePostForm() {
       if (!postTextEl.value.trim() && uploadedMedia.length === 0) {
-        tg.showAlert('Please write a message or upload at least one photo/video!');
+        tg.showAlert('Please write a message or attach at least one photo/video before publishing.');
         return false;
       }
       if (needButtonEl.checked) {
@@ -685,40 +749,77 @@
       return true;
     }
 
+    // Trigger Reward Ad (Used for 2nd+ posts of the day, or fallback if no Task ad available)
+    async function triggerRewardAdAndPublish() {
+      if (!RewardAdController) {
+        tg.showAlert('Ad service is initializing, please try again in a moment.');
+        return;
+      }
+      try {
+        const result = await RewardAdController.show();
+        if (result && result.done) {
+          await executePublish('reward');
+        }
+      } catch (err) {
+        tg.showAlert('Please finish watching the sponsor ad to publish your post.');
+      }
+    }
+
+    // Dynamically Mount 1st-of-Day Task Ad ONLY when user clicks Publish
+    function openOnDemandTaskAdModal() {
+      dynamicTaskSlot.innerHTML = '';
+      const taskElement = document.createElement('adsgram-task');
+      taskElement.className = 'task';
+      taskElement.setAttribute('data-block-id', TASK_BLOCK_ID);
+      taskElement.setAttribute('data-debug', 'false');
+
+      // 1. User completed the Task Ad -> Lock Task Ad for today, destroy element, and Publish!
+      taskElement.addEventListener('reward', async () => {
+        setAllClientTaskLocks();
+        taskAdModal.classList.add('hidden');
+        dynamicTaskSlot.innerHTML = '';
+        await executePublish('task');
+      });
+
+      // 2. AdsGram Approval Rule: If no task campaign is available for user's country,
+      // automatically switch to Reward Ad so the user is never blocked from posting.
+      const handleNoTaskFill = async () => {
+        taskAdModal.classList.add('hidden');
+        dynamicTaskSlot.innerHTML = '';
+        await triggerRewardAdAndPublish();
+      };
+
+      taskElement.addEventListener('onBannerNotFound', handleNoTaskFill);
+      taskElement.addEventListener('onError', handleNoTaskFill);
+
+      dynamicTaskSlot.appendChild(taskElement);
+      taskAdModal.classList.remove('hidden');
+    }
+
     // =========================================================================
-    // STEP 1: USER TAPS "PUBLISH POST" -> ASK TO WATCH AD NOW
+    // MAIN PUBLISH CLICK: CHECKS 1-TASK-PER-DAY LOCK BEFORE SHOWING ANY AD
     // =========================================================================
     publishBtn.onclick = async () => {
       if (!validatePostForm()) return;
 
-      // Refresh daily ad status before showing ad
-      await syncAdStatus();
+      publishBtn.disabled = true;
+      publishBtn.textContent = '⏳ Checking daily ad status...';
 
-      if (requiredAdType === 'task') {
-        // 1st Post of the day -> Open Task Block Modal
-        taskAdModal.classList.remove('hidden');
+      const alreadyDidTaskToday = await hasCompletedTaskToday();
+
+      publishBtn.disabled = false;
+      publishBtn.textContent = '🚀 Publish Post';
+
+      if (!alreadyDidTaskToday) {
+        // 1st Post of the Day -> Mount and open Task Block Ad
+        openOnDemandTaskAdModal();
       } else {
-        // 2nd+ Post of the day -> Show Reward Video Ad immediately
-        try {
-          const result = await RewardAdController.show();
-          if (result.done) {
-            await executePublish('reward');
-          }
-        } catch (err) {
-          tg.showAlert('You must finish watching the reward ad to publish your post.');
-        }
+        // 2nd+ Post of the Day -> Never show Task Block again; directly show Reward Block Ad
+        await triggerRewardAdAndPublish();
       }
     };
 
-    // When 1st-of-day Task Ad finishes inside the Modal -> Publish immediately!
-    taskEl.addEventListener('reward', async () => {
-      taskAdModal.classList.add('hidden');
-      await executePublish('task');
-    });
-
-    // =========================================================================
-    // STEP 2: SEND POST TO @Big_refferal_chat & NOTIFY ADMIN (8026237972)
-    // =========================================================================
+    // Publish to @Big_refferal_chat & notify 8026237972
     async function executePublish(adTypeWatched) {
       publishBtn.disabled = true;
       publishBtn.textContent = '⏳ Publishing to @Big_refferal_chat...';
@@ -744,13 +845,15 @@
 
         const data = await res.json();
         if (data.success) {
+          // Lock Task Ad on client so any next post today strictly uses Reward Ad
+          setAllClientTaskLocks();
           tg.showAlert('🎉 Your post is live in @Big_refferal_chat!');
-          // Reset form
+
+          // Reset Form
           postTextEl.value = '';
           uploadedMedia = [];
           renderMediaThumbnails();
-          uploadStatusText.textContent = 'Tap to Upload Photos or Videos';
-          requiredAdType = 'reward'; // Next post today will use Reward Ad
+          updateMediaCounterUI();
         } else {
           tg.showAlert('❌ ' + (data.error || 'Failed to publish'));
         }
@@ -761,8 +864,6 @@
         publishBtn.textContent = '🚀 Publish Post';
       }
     }
-
-    syncAdStatus();
   </script>
 </body>
 </html>
