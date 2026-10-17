@@ -3,7 +3,7 @@ import { Redis } from '@upstash/redis';
 global.dailyMemoryStore = global.dailyMemoryStore || {};
 
 function getTodayDate() {
-  return new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  return new Date().toISOString().split('T')[0];
 }
 
 export default async function handler(req, res) {
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const countKey = `posts_${userId}_${today}`;
   const taskKey = `task_done_${userId}_${today}`;
   const banKey = `banned_${userId}`;
-  const deviceKey = `device_user_${deviceId}_${today}`; // Tracks 1 account per device per day
+  const deviceKey = `device_user_${deviceId}_${today}`;
 
   let postsToday = 0;
   let taskDone = false;
@@ -33,7 +33,6 @@ export default async function handler(req, res) {
       postsToday = Number(c || 0);
       taskDone = Boolean(t);
       isBanned = Boolean(b);
-      // If another user already used this device today for their 1st task, flag it
       if (deviceId && registeredUser && String(registeredUser) !== String(userId)) {
         deviceConflict = true;
       } else if (deviceId && !registeredUser) {
